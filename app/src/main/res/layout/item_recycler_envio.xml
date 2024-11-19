@@ -1,0 +1,85 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="16dp"
+    android:paddingBottom="5dp"
+    android:paddingRight="5dp"
+    android:paddingLeft="5dp"
+    android:background="@drawable/rounded_corners_envios"
+    android:layout_marginStart="40dp"
+    android:layout_marginEnd="40dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+
+    android:gravity="center">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Número de guía:"
+        android:textSize="16sp"
+        android:textColor="@color/l_primary_dark"
+        android:textStyle="bold"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/tv_NumeroGuia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1Z999AA10123456784"
+        android:layout_marginTop="5dp"
+        android:textSize="16sp"
+        android:textColor="@color/l_primary_dark" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dirección de destino"
+        android:textSize="16sp"
+        android:layout_marginTop="4dp"
+
+        android:textStyle="bold"
+        android:textColor="@color/l_primary_dark" />
+
+    <TextView
+        android:id="@+id/tvDireccion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Avenida Insurgentes Sur 1234, Colonia Del Valle, CP 03100, Ciudad de México."
+        android:textSize="16sp"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:textAlignment="center"
+        android:textColor="@color/l_primary_dark" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Estatus"
+        android:textSize="16sp"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/l_primary_dark"
+        android:textStyle="bold"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/tvEstatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pendiente"
+        android:textSize="16sp"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/l_primary_dark" />
+
+    <Button
+        android:id="@+id/btnDetalles"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ver detalles del envío"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rounded_corners_btn_envios"
+        android:textColor="@android:color/white" />
+</LinearLayout>

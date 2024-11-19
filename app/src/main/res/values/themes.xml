@@ -1,0 +1,13 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.TimeFastMobile" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimaryDark">@color/l_primary</item>
+        <item name="colorPrimary">@color/l_primary</item>
+        <item name="colorAccent">@color/l_accent</item>
+
+        <item name="android:statusBarColor">@color/l_accent</item>
+
+    </style>
+
+    <style name="Theme.TimeFastMobile" parent="Base.Theme.TimeFastMobile" />
+</resources>

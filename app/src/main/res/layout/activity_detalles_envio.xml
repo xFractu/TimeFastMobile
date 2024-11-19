@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/l_primary_dark"
+    tools:context=".DetallesEnvioActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/rounded_corners_perfil"
+        android:layout_marginTop="100dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/l_secondary"
+            android:layout_marginTop="30dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Detalles de envío"
+                android:textColor="@color/l_primary_dark"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="50dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_cambiar_estatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cambiar Estado"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="end"
+                android:textColor="@color/l_primary_dark"
+                />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:id="@+id/iv_direccion_origen"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_store_marker"
+                android:tint="@color/l_primary_dark"
+                android:layout_marginStart="20dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_direccion_origen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dirección de origen"
+                android:textColor="@color/l_primary_dark"
+                android:textStyle="bold"
+                android:layout_toRightOf="@+id/iv_direccion_origen"
+                android:layout_marginStart="10dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="60dp"
+                android:layout_marginStart="10dp"
+                android:text="Avenida Insurgentes Sur 1234, Colonia Del Valle, CP 03100, Ciudad de México"
+                android:textColor="@color/l_primary_dark"
+                android:layout_toRightOf="@+id/iv_direccion_origen"
+                android:layout_below="@+id/tv_direccion_origen"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/iv_direccion_destino"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_map_marker"
+                android:tint="@color/l_primary_dark"
+                android:layout_marginStart="20dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_direccion_destino"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dirección de destino"
+                android:textColor="@color/l_primary_dark"
+                android:textStyle="bold"
+                android:layout_toRightOf="@+id/iv_direccion_destino"
+                android:layout_marginStart="10dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="60dp"
+                android:layout_marginStart="10dp"
+                android:text="Avenida Insurgentes Sur 1234, Colonia Del Valle, CP 03100, Ciudad de México"
+                android:textColor="@color/l_primary_dark"
+                android:layout_toRightOf="@+id/iv_direccion_destino"
+                android:layout_below="@+id/tv_direccion_destino"
+                />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/iv_paquetes"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_package"
+                android:tint="@color/l_primary_dark"
+                android:layout_marginStart="20dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_paquetes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Paquetes contenidos"
+                android:textColor="@color/l_primary_dark"
+                android:textStyle="bold"
+                android:layout_toRightOf="@+id/iv_paquetes"
+                android:layout_marginStart="10dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="60dp"
+                android:layout_marginStart="10dp"
+                android:text="Avenida Insurgentes Sur 1234, Colonia Del Valle, CP 03100, Ciudad de México"
+                android:textColor="@color/l_primary_dark"
+                android:layout_toRightOf="@+id/iv_paquetes"
+                android:layout_below="@+id/tv_paquetes"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/iv_estatus"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_truck_fast"
+                android:tint="@color/l_primary_dark"
+                android:layout_marginStart="20dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_estatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Estatus"
+                android:textColor="@color/l_primary_dark"
+                android:textStyle="bold"
+                android:layout_toRightOf="@+id/iv_estatus"
+                android:layout_marginStart="10dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="60dp"
+                android:layout_marginStart="10dp"
+                android:text="Avenida Insurgentes Sur 1234, Colonia Del Valle, CP 03100, Ciudad de México"
+                android:textColor="@color/l_primary_dark"
+                android:layout_toRightOf="@+id/iv_estatus"
+                android:layout_below="@+id/tv_estatus"
+                />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/iv_contacto"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_account_outline"
+                android:tint="@color/l_primary_dark"
+                android:layout_marginStart="20dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_contacto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Contacto el cliente"
+                android:textColor="@color/l_primary_dark"
+                android:textStyle="bold"
+                android:layout_toRightOf="@+id/iv_contacto"
+                android:layout_marginStart="10dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="60dp"
+                android:layout_marginStart="10dp"
+                android:text="Avenida Insurgentes Sur 1234, Colonia Del Valle, CP 03100, Ciudad de México"
+                android:textColor="@color/l_primary_dark"
+                android:layout_toRightOf="@+id/iv_contacto"
+                android:layout_below="@+id/tv_contacto"
+                />
+
+        </RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/nav_bar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:background="@drawable/rounded_corners_nav_bar"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:weightSum="3"
+        android:elevation="10dp"
+
+        >
+
+        <ImageView
+            android:id="@+id/btn_inicio"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:tint="@color/l_primary_dark"
+            android:src="@drawable/ic_home"
+            android:layout_weight="1"
+            />
+
+        <ImageView
+            android:id="@+id/btn_perfil"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:tint="@color/l_primary_dark"
+            android:src="@drawable/ic_account"
+            android:layout_weight="1"
+            />
+
+        <ImageView
+            android:id="@+id/btn_cerrar_sesion"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:tint="@color/l_primary_dark"
+            android:src="@drawable/ic_logout"
+            android:layout_weight="1"
+            />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

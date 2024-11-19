@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="grey">#BABABA</color>
+    <color name ="fragment1">#83FF03</color>
+    <color name ="fragment2">#FF002E</color>
+
+
+    <color name="l_primary">#205375</color>
+    <color name="l_primary_dark">#112B3C</color>
+    <color name="l_accent">#F66B0E</color>
+    <color name="l_secondary">#EFEFEF</color>
+
+
+</resources>
