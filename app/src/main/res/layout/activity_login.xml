@@ -77,7 +77,7 @@
             android:background="@drawable/login_input">
 
             <EditText
-                android:id="@+id/et_password_login"
+                android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/white"
@@ -119,16 +119,6 @@
             android:text="¿Olvidó su contraseña?"
             />
 
-
-
-
-
-
-
     </LinearLayout>
-
-
-
-
 
 </RelativeLayout>
