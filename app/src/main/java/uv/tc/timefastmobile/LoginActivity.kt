@@ -9,9 +9,10 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
+import org.json.JSONObject
 import com.koushikdutta.ion.Ion
 import uv.tc.timefastmobile.databinding.ActivityLoginBinding
-import uv.tc.timefastmobile.poko.LoginColaborador
+import uv.tc.timefastmobile.poko.Colaborador
 import uv.tc.timefastmobile.util.Constantes
 import kotlin.reflect.KMutableProperty0
 
@@ -51,12 +52,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun verificarCredenciales(noPersonal: String, password: String) {
-        // Configuración de Ion (solo la primera vez)
         Ion.getDefault(this@LoginActivity).conscryptMiddleware.enable(false)
 
-        // Llamada al Web Service
         Ion.with(this@LoginActivity)
-            .load("POST", "${Constantes().URL_WS}/conductores/iniciarSesion")
+            .load("POST", "${Constantes().URL_WS}/login/login-colaborador")
             .setHeader("Content-Type", "application/x-www-form-urlencoded")
             .setBodyParameter("noPersonal", noPersonal)
             .setBodyParameter("password", password)
@@ -71,13 +70,25 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun procesarRespuesta(json: String) {
-        val gson = Gson()
-        val respuesta = gson.fromJson(json, LoginColaborador::class.java)
-        Toast.makeText(this@LoginActivity, respuesta.mensaje, Toast.LENGTH_LONG).show()
+        try {
+            val gson = Gson()
+            val jsonObject = JSONObject(json)
 
-        if (!respuesta.error) {
-            val colaboradorJSON = gson.toJson(respuesta.colaborador)
-            irPantallaInicio(colaboradorJSON)
+            // Extraer el mensaje y verificar si hubo error
+            val mensaje = jsonObject.getString("mensaje")
+            val error = jsonObject.getBoolean("error")
+            Toast.makeText(this@LoginActivity, mensaje, Toast.LENGTH_LONG).show()
+
+            if (!error) {
+                // Extraer y decodificar el colaborador
+                val objeto = jsonObject.getJSONObject("objeto")
+                val colaboradorJson = objeto.getString("value")
+                val colaborador = gson.fromJson(colaboradorJson, Colaborador::class.java)
+
+                irPantallaInicio(gson.toJson(colaborador))
+            }
+        } catch (ex: Exception) {
+            Toast.makeText(this@LoginActivity, "Error al procesar la respuesta", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -113,3 +124,4 @@ class LoginActivity : AppCompatActivity() {
         editText.setSelection(editText.text.length)
     }
 }
+
