@@ -75,6 +75,7 @@
                 />
 
             <TextView
+                android:id="@+id/tv_info_direccion_de_origen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -114,12 +115,13 @@
                 />
 
             <TextView
+                android:id="@+id/tv_info_direccion_de_destino"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="60dp"
                 android:layout_marginStart="10dp"
-                android:text="Avenida Insurgentes Sur 1234, Colonia Del Valle, CP 03100, Ciudad de México"
+                android:text="Avenida fuerza norte 5678, Colonia Del Agua, CP 03150, Ciudad de México"
                 android:textColor="@color/l_primary_dark"
                 android:layout_toRightOf="@+id/iv_direccion_destino"
                 android:layout_below="@+id/tv_direccion_destino"
@@ -154,6 +156,7 @@
                 />
 
             <TextView
+                android:id="@+id/tv_info_paquetes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -193,12 +196,13 @@
                 />
 
             <TextView
+                android:id="@+id/tv_info_Estatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="60dp"
                 android:layout_marginStart="10dp"
-                android:text="Avenida Insurgentes Sur 1234, Colonia Del Valle, CP 03100, Ciudad de México"
+                android:text="Pendiente"
                 android:textColor="@color/l_primary_dark"
                 android:layout_toRightOf="@+id/iv_estatus"
                 android:layout_below="@+id/tv_estatus"
@@ -233,26 +237,19 @@
                 />
 
             <TextView
+                android:id="@+id/tv_info_contacto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="60dp"
                 android:layout_marginStart="10dp"
-                android:text="Avenida Insurgentes Sur 1234, Colonia Del Valle, CP 03100, Ciudad de México"
+                android:text="Mario Moreno López, Numero: 2285674589, correo: mario@gmail.com, CURP: MOLM010611HVZPRPA"
                 android:textColor="@color/l_primary_dark"
                 android:layout_toRightOf="@+id/iv_contacto"
                 android:layout_below="@+id/tv_contacto"
                 />
 
         </RelativeLayout>
-
-
-
-
-
-
-
-
 
 
     </LinearLayout>

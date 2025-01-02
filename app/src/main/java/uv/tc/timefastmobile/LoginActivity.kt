@@ -14,6 +14,7 @@ import com.koushikdutta.ion.Ion
 import uv.tc.timefastmobile.databinding.ActivityLoginBinding
 import uv.tc.timefastmobile.poko.Colaborador
 import uv.tc.timefastmobile.util.Constantes
+import java.nio.charset.Charset
 import kotlin.reflect.KMutableProperty0
 
 class LoginActivity : AppCompatActivity() {
@@ -55,11 +56,11 @@ class LoginActivity : AppCompatActivity() {
         Ion.getDefault(this@LoginActivity).conscryptMiddleware.enable(false)
 
         Ion.with(this@LoginActivity)
-            .load("POST", "${Constantes().URL_WS}/login/login-colaborador")
+            .load("POST", "${Constantes().URL_WS}/login/login-colaborador-conductor")
             .setHeader("Content-Type", "application/x-www-form-urlencoded")
             .setBodyParameter("noPersonal", noPersonal)
             .setBodyParameter("password", password)
-            .asString()
+            .asString(Charset.forName("UTF-8"))
             .setCallback { e, result ->
                 if (e == null) {
                     procesarRespuesta(result)
