@@ -8,11 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import uv.tc.timefastmobile.DetallesEnvioActivity
 import uv.tc.timefastmobile.databinding.ItemRecyclerEnvioBinding
+import uv.tc.timefastmobile.poko.Colaborador
 import uv.tc.timefastmobile.poko.Envio
 
 class EnviosAdapter(
     private val context: Context,
-    private val enviosList: List<Envio>
+    private val enviosList: List<Envio>,
+    private val colaborador: Colaborador
 ) : RecyclerView.Adapter<EnviosAdapter.EnvioViewHolder>() {
 
     inner class EnvioViewHolder(private val binding: ItemRecyclerEnvioBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -29,16 +31,18 @@ class EnviosAdapter(
 
             // Configurar el botón de detalles
             binding.btnDetalles.setOnClickListener {
-                irPantallaDetallesEnvio(envio)
+                irPantallaDetallesEnvio(envio,colaborador)
             }
         }
     }
 
-    private fun irPantallaDetallesEnvio(envio: Envio) {
+    private fun irPantallaDetallesEnvio(envio: Envio, colaborador: Colaborador) {
         val gson = Gson()
         val envioJson = gson.toJson(envio)
+        val colaboradorJson = gson.toJson(colaborador)
         val intent = Intent(context, DetallesEnvioActivity::class.java).apply {
             putExtra("envio", envioJson)
+            putExtra("colaborador", colaboradorJson)
         }
         context.startActivity(intent)
     }

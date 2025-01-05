@@ -6,5 +6,5 @@ data class Colaborador(
     val noPersonal: String,
     val persona: Persona,
     val contrasena: String,
-    val rol: RolColaborador
+    val rol: RolColaborador,
 )

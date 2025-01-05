@@ -96,6 +96,7 @@ class LoginActivity : AppCompatActivity() {
     private fun irPantallaInicio(colaborador: String) {
         val intent = Intent(this@LoginActivity, InicioActivity::class.java)
         intent.putExtra("colaborador", colaborador)
+        intent.putExtra("inicio", "InicioLogin")
         startActivity(intent)
         finish()
     }
