@@ -47,6 +47,8 @@ class InicioFragment : Fragment() {
             enviosList = gson.fromJson(it, object : TypeToken<List<Envio>>() {}.type)
         }
 
+        
+
         configurarRecycler()
     }
 

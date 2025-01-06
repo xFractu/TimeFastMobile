@@ -23,6 +23,7 @@ import android.text.method.PasswordTransformationMethod
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import com.koushikdutta.ion.Ion
+import org.json.JSONObject
 import uv.tc.timefastmobile.poko.Mensaje
 import uv.tc.timefastmobile.util.Constantes
 import java.io.ByteArrayOutputStream
@@ -59,12 +60,13 @@ class PerfilFragment : Fragment(R.layout.fragment_perfil) {
 
             mostrarDatosColaborador(colaborador)
         }
-
+        obtenerFotoColaborador(colaborador.idColaborador)
         val nombre = "${colaborador.persona.nombre} ${colaborador.persona.apellidoPaterno} ${colaborador.persona.apellidoMaterno}"
         val correo = "${colaborador.persona.correo}"
         binding.tvNombreCompleto.text = nombre
         binding.tvCorreo.text = correo
-        cargarFotoColaborador("${colaborador.persona.fotoBase64}")
+
+
         binding.btnCambiarFoto.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
@@ -73,10 +75,41 @@ class PerfilFragment : Fragment(R.layout.fragment_perfil) {
 
     }
 
+    fun quitarTintFotoPerfil() {
+        binding.ivFotoPerfil.colorFilter = null // Elimina el tint aplicado al ImageView
+    }
+
+    fun obtenerFotoColaborador(idColaborador: Int) {
+        Ion.with(requireContext())
+            .load("GET", "${Constantes().URL_WS}/colaborador/obtener-foto/${idColaborador}")
+            .asString()
+            .setCallback { e, result ->
+                if (e == null) {
+                    try {
+                        // Parsear la respuesta JSON
+                        val jsonObject = JSONObject(result)
+                        val error = jsonObject.getBoolean("error")
+                        if (!error) {
+                            // Extraer el objeto "objeto" y su "value"
+                            val objeto = jsonObject.getJSONObject("objeto")
+                            val fotoBase64 = objeto.getString("value")
+                            cargarFotoColaborador(fotoBase64)
+                        } else {
+                            val mensaje = jsonObject.getString("mensaje")
+                            Toast.makeText(requireContext(), "Error: $mensaje", Toast.LENGTH_LONG).show()
+                        }
+                    } catch (ex: Exception) {
+                        Toast.makeText(requireContext(), "Error al procesar la respuesta: ${ex.message}", Toast.LENGTH_LONG).show()
+                    }
+                } else {
+                    Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_LONG).show()
+                }
+            }
+    }
+
 
     fun cargarFotoColaborador(foto: String){
         if(foto.isNotEmpty()){
-            val gson = Gson()
             val colaboradorFoto = foto
             if(colaboradorFoto != null){
 
@@ -84,7 +117,7 @@ class PerfilFragment : Fragment(R.layout.fragment_perfil) {
                     val imgBytes = Base64.decode(colaboradorFoto,Base64.DEFAULT)
                     val imgBitMap = BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.size)
                     binding.ivFotoPerfil.setImageBitmap(imgBitMap)
-
+                    quitarTintFotoPerfil()
                 }catch (e: Exception){
                     Toast.makeText(requireContext(),
                         "Error img: "+ e.message,Toast.LENGTH_LONG).show()
@@ -139,7 +172,7 @@ class PerfilFragment : Fragment(R.layout.fragment_perfil) {
                     val msj = gson.fromJson(result, Mensaje::class.java)
                     Toast.makeText(requireContext(), msj.mensaje,Toast.LENGTH_LONG).show()
                     if(!msj.error){
-                        //obtenerFotoCliente(cliente.idCliente)
+                        obtenerFotoColaborador(colaborador.idColaborador)
                     }
                 }else{
                     Toast.makeText(requireContext(), e.message,Toast.LENGTH_LONG).show()
@@ -147,20 +180,7 @@ class PerfilFragment : Fragment(R.layout.fragment_perfil) {
             }
     }
 
-    fun obtenerFotoColaborador(idColaborador: Int){
-        Ion.with(requireContext())
-            .load("GET" ,"${Constantes().URL_WS}clientes/obtener-foto/${idColaborador}")
-            .asString()
-            .setCallback { e, result ->
-                if(e == null){
-                    cargarFotoColaborador(result)
-                }else{
-                    Toast.makeText(requireContext(), "Error: "+e.message, Toast.LENGTH_LONG).show()
-                }
-            }
 
-
-    }
 
 
     private fun irPantallaEditarPerfil(colaborador: Colaborador) {

@@ -46,7 +46,7 @@ class EstatusActivity : AppCompatActivity() {
 
         // Listeners para cambios de estatus
         binding.llEntregado.setOnClickListener { cambiarEstatus("Entregado") }
-        binding.llEnTransito.setOnClickListener { cambiarEstatus("En Tránsito") }
+        binding.llEnTransito.setOnClickListener { cambiarEstatus("En transito") }
         binding.llDetenido.setOnClickListener { cambiarEstatus("Detenido") }
         binding.llCancelado.setOnClickListener { cambiarEstatus("Cancelado") }
 
@@ -55,7 +55,7 @@ class EstatusActivity : AppCompatActivity() {
 
 
         binding.btnInicio.setOnClickListener {
-            irPantallaInicioF(colaborador)
+            irPantallaInicio(colaborador)
         }
 
         binding.btnPerfil.setOnClickListener {
@@ -73,7 +73,7 @@ class EstatusActivity : AppCompatActivity() {
         // Mapa de estados con sus respectivos layouts, iconos y textos
         val estados = mapOf(
             "Entregado" to Triple(binding.llEntregado, binding.ivEntregado, binding.tvEntregado),
-            "En Tránsito" to Triple(binding.llEnTransito, binding.ivEnTransito, binding.tvEnTransito),
+            "En transito" to Triple(binding.llEnTransito, binding.ivEnTransito, binding.tvEnTransito),
             "Detenido" to Triple(binding.llDetenido, binding.ivDetenido, binding.tvDetenido),
             "Cancelado" to Triple(binding.llCancelado, binding.ivCancelado, binding.tvCancelado)
         )
@@ -118,7 +118,7 @@ class EstatusActivity : AppCompatActivity() {
                     Toast.makeText(this, "Error al actualizar estatus: ${e.message}", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this, "Estatus actualizado correctamente", Toast.LENGTH_SHORT).show()
-                    irPantallaInicio(colaborador)
+                    irPantallaInicioF(colaborador)
 
                 }
             })
@@ -139,7 +139,7 @@ class EstatusActivity : AppCompatActivity() {
         val colaboradorJson = gson.toJson(colaborador)
         val intent = Intent(this@EstatusActivity, InicioActivity::class.java)
         intent.putExtra("colaborador", colaboradorJson)
-        intent.putExtra("inicio", "Inicio")
+        intent.putExtra("inicio", "InicioLogin")
         startActivity(intent)
     }
 
@@ -155,10 +155,9 @@ class EstatusActivity : AppCompatActivity() {
     private fun irPantallaInicio(colaborador: Colaborador) {
         val gson = Gson()
         val colaboradorJson = gson.toJson(colaborador)
-        val intent = Intent(this@EstatusActivity, InicioActivity::class.java).apply {
-            putExtra("colaborador", colaboradorJson)
-        }
+        val intent = Intent(this@EstatusActivity, InicioActivity::class.java)
+        intent.putExtra("colaborador", colaboradorJson)
+        intent.putExtra("inicio", "Inicio")
         startActivity(intent)
-        finish()
     }
 }

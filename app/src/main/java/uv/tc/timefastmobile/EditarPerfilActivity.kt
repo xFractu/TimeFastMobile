@@ -1,8 +1,10 @@
 package uv.tc.timefastmobile
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
+import android.util.Log
 import android.view.MotionEvent
 import android.widget.EditText
 import android.widget.Toast
@@ -11,8 +13,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.gson.Gson
+import com.koushikdutta.ion.Ion
 import uv.tc.timefastmobile.databinding.ActivityEditarPerfilBinding
 import uv.tc.timefastmobile.poko.Colaborador
+import uv.tc.timefastmobile.poko.Persona
+import uv.tc.timefastmobile.poko.RolColaborador
+import uv.tc.timefastmobile.util.Constantes
+import java.nio.charset.Charset
 import kotlin.reflect.KMutableProperty0
 
 class EditarPerfilActivity : AppCompatActivity() {
@@ -34,6 +41,15 @@ class EditarPerfilActivity : AppCompatActivity() {
         if (colaboradorJSON != null) {
             val gson = Gson()
             colaborador = gson.fromJson(colaboradorJSON, Colaborador::class.java)
+            // Agregar el log para depuración
+            Log.d("ColaboradorData", "Colaborador: $colaborador")
+            Log.d("ColaboradorData", "No. Personal: ${colaborador.noPersonal}")
+            Log.d("ColaboradorData", "Nombre: ${colaborador.persona?.nombre}")
+            Log.d("ColaboradorData", "Apellido Paterno: ${colaborador.persona?.apellidoPaterno}")
+            Log.d("ColaboradorData", "Apellido Materno: ${colaborador.persona?.apellidoMaterno}")
+            Log.d("ColaboradorData", "Rol: ${colaborador.rol?.rol}")
+            Log.d("ColaboradorData", "Rol ID: ${colaborador.rol?.idRolColaborador}")
+            Log.d("ColaboradorData", "ID Persona: ${colaborador.persona?.idPersona}")
             mostrarDatosColaborador(colaborador)
         } else {
             //Toast.makeText(this, "No se recibieron datos del colaborador", Toast.LENGTH_LONG).show()
@@ -52,8 +68,141 @@ class EditarPerfilActivity : AppCompatActivity() {
         setupPasswordVisibilityToggle(binding.etPasswordNueva, ::passwordNuevaVisible)
         setupPasswordVisibilityToggle(binding.etPasswordConfirmar, ::passwordConfirmarVisible)
 
+        binding.btnInicio.setOnClickListener {
+            irPantallaInicio(colaborador)
+        }
+
+        binding.btnPerfil.setOnClickListener {
+            irPantallaPerfil(colaborador)
+        }
+
+        binding.btnEditarPerfil.setOnClickListener {
+            // Crear una nueva instancia de Persona
+            val persona = Persona(
+                idPersona = colaborador.persona.idPersona,
+                nombre = binding.etNombre.text.toString(),
+                apellidoPaterno = binding.etApellidoPaterno.text.toString(),
+                apellidoMaterno = binding.etApellidoMaterno.text.toString(),
+                correo = binding.etCorreo.text.toString(),
+                CURP = binding.etCurp.text.toString()
+            )
+
+            // Crear una nueva instancia de RolColaborador
+            val rol = RolColaborador(
+                idRolColaborador = colaborador.rol.idRolColaborador,
+                rol = colaborador.rol.rol,
+                numLicencia = binding.etNoLicencia.text.toString(),
+                idColaborador = colaborador.idColaborador
+            )
+
+            // Validar si hay una nueva contraseña y si es válida
+            val nuevaContrasena = binding.etPasswordNueva.text.toString()
+            val confirmarContrasena = binding.etPasswordConfirmar.text.toString()
+            val contrasenaFinal = if (nuevaContrasena.isNotEmpty() && nuevaContrasena == confirmarContrasena) {
+                nuevaContrasena
+            } else {
+                colaborador.contrasena // Mantener la contraseña actual si no hay cambios
+            }
+
+            // Validar campos vacíos
+            if (validarCampos()) {
+                // Crear el objeto Colaborador actualizado
+                val colaboradorActualizado = Colaborador(
+                    idColaborador = colaborador.idColaborador,
+                    idPersona = colaborador.persona.idPersona,
+                    noPersonal = colaborador.noPersonal,
+                    persona = persona,
+                    contrasena = contrasenaFinal,
+                    rol = rol
+                )
+
+                // Llamar al método para enviar los datos al servidor
+                enviarDatosEdicion(colaboradorActualizado)
+                Toast.makeText(this@EditarPerfilActivity, "Cambios guardados", Toast.LENGTH_LONG).show()
+            }
+        }
+
 
     }
+
+    private fun enviarDatosEdicion(colaborador: Colaborador) {
+        val gson = Gson()
+        val parametros = gson.toJson(colaborador)
+
+        Ion.with(this@EditarPerfilActivity)
+            .load("PUT", "${Constantes().URL_WS}/colaborador/editar")
+            .setHeader("Content-Type", "application/json")
+            .setStringBody(parametros)
+            .asString(Charset.forName("UTF-8"))
+            .setCallback { e, result ->
+                if (e == null) {
+                    // Procesar respuesta del servidor
+                    Log.d("Respuesta del Servidor", result)  // Log para depurar la respuesta del servidor
+                    Toast.makeText(this@EditarPerfilActivity, "Colaborador actualizado con éxito", Toast.LENGTH_LONG).show()
+                    irPantallaPerfil(colaborador)
+                } else {
+                    // Manejar errores
+                    Log.e("Error de Servidor", e.message ?: "Error desconocido")
+                    Toast.makeText(this@EditarPerfilActivity, "Error: ${e.message}", Toast.LENGTH_LONG).show()
+                }
+            }
+    }
+
+
+
+    private fun validarCampos(): Boolean {
+        return when {
+            binding.etNombre.text.isNullOrEmpty() -> {
+                binding.etNombre.error = "El nombre no puede estar vacío"
+                false
+            }
+            binding.etApellidoPaterno.text.isNullOrEmpty() -> {
+                binding.etApellidoPaterno.error = "El apellido paterno no puede estar vacío"
+                false
+            }
+            binding.etApellidoMaterno.text.isNullOrEmpty() -> {
+                binding.etApellidoMaterno.error = "El apellido materno no puede estar vacío"
+                false
+            }
+            binding.etCurp.text.isNullOrEmpty() -> {
+                binding.etCurp.error = "El CURP no puede estar vacío"
+                false
+            }
+            binding.etCorreo.text.isNullOrEmpty() -> {
+                binding.etCorreo.error = "El correo no puede estar vacío"
+                false
+            }
+            binding.etNoLicencia.text.isNullOrEmpty() -> {
+                binding.etNoLicencia.error = "El número de licencia no puede estar vacío"
+                false
+            }
+            binding.etPasswordNueva.text.isNotEmpty() && binding.etPasswordConfirmar.text.toString() != binding.etPasswordNueva.text.toString() -> {
+                binding.etPasswordConfirmar.error = "Las contraseñas no coinciden"
+                false
+            }
+            else -> true
+        }
+    }
+
+
+    private fun irPantallaPerfil(colaborador: Colaborador) {
+        val gson = Gson()
+        val colaboradorJson = gson.toJson(colaborador)
+        val intent = Intent(this@EditarPerfilActivity, InicioActivity::class.java)
+        intent.putExtra("colaborador", colaboradorJson)
+        intent.putExtra("inicio", "Perfil")
+        startActivity(intent)
+    }
+
+    private fun irPantallaInicio(colaborador: Colaborador) {
+        val gson = Gson()
+        val colaboradorJson = gson.toJson(colaborador)
+        val intent = Intent(this@EditarPerfilActivity, InicioActivity::class.java)
+        intent.putExtra("colaborador", colaboradorJson)
+        intent.putExtra("inicio", "Inicio")
+        startActivity(intent)
+    }
+
 
 
     private fun mostrarDatosColaborador(colaborador: Colaborador) {
