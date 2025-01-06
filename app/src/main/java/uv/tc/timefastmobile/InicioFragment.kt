@@ -38,7 +38,7 @@ class InicioFragment : Fragment() {
         if (colaboradorJSON != null) {
             val gson = Gson()
             colaborador = gson.fromJson(colaboradorJSON, Colaborador::class.java)
-            mostrarDatosColaborador(colaborador)
+            //mostrarDatosColaborador(colaborador)
         }
 
         val gson = Gson()

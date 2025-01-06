@@ -41,7 +41,7 @@ class EditarPerfilActivity : AppCompatActivity() {
         if (colaboradorJSON != null) {
             val gson = Gson()
             colaborador = gson.fromJson(colaboradorJSON, Colaborador::class.java)
-            // Agregar el log para depuración
+            // log para depuración
             Log.d("ColaboradorData", "Colaborador: $colaborador")
             Log.d("ColaboradorData", "No. Personal: ${colaborador.noPersonal}")
             Log.d("ColaboradorData", "Nombre: ${colaborador.persona?.nombre}")
@@ -50,7 +50,7 @@ class EditarPerfilActivity : AppCompatActivity() {
             Log.d("ColaboradorData", "Rol: ${colaborador.rol?.rol}")
             Log.d("ColaboradorData", "Rol ID: ${colaborador.rol?.idRolColaborador}")
             Log.d("ColaboradorData", "ID Persona: ${colaborador.persona?.idPersona}")
-            mostrarDatosColaborador(colaborador)
+            //mostrarDatosColaborador(colaborador)
         } else {
             //Toast.makeText(this, "No se recibieron datos del colaborador", Toast.LENGTH_LONG).show()
         }
@@ -116,7 +116,7 @@ class EditarPerfilActivity : AppCompatActivity() {
                     rol = rol
                 )
 
-                // Llamar al método para enviar los datos al servidor
+                // Llamar al metodo para enviar los datos al servidor
                 enviarDatosEdicion(colaboradorActualizado)
                 Toast.makeText(this@EditarPerfilActivity, "Cambios guardados", Toast.LENGTH_LONG).show()
             }
@@ -139,7 +139,7 @@ class EditarPerfilActivity : AppCompatActivity() {
                     // Procesar respuesta del servidor
                     Log.d("Respuesta del Servidor", result)  // Log para depurar la respuesta del servidor
                     Toast.makeText(this@EditarPerfilActivity, "Colaborador actualizado con éxito", Toast.LENGTH_LONG).show()
-                    irPantallaPerfil(colaborador)
+                    irPantallaPerfilF(colaborador)
                 } else {
                     // Manejar errores
                     Log.e("Error de Servidor", e.message ?: "Error desconocido")
@@ -182,6 +182,16 @@ class EditarPerfilActivity : AppCompatActivity() {
             }
             else -> true
         }
+    }
+
+    private fun irPantallaPerfilF(colaborador: Colaborador) {
+        val gson = Gson()
+        val colaboradorJson = gson.toJson(colaborador)
+        val intent = Intent(this@EditarPerfilActivity, InicioActivity::class.java)
+        intent.putExtra("colaborador", colaboradorJson)
+        intent.putExtra("inicio", "Perfil")
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
     }
 
 

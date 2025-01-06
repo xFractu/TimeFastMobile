@@ -36,7 +36,7 @@ class InicioActivity : AppCompatActivity() {
         if (colaboradorJSON != null) {
             val gson = Gson()
             colaborador = gson.fromJson(colaboradorJSON, Colaborador::class.java)
-            mostrarDatosColaborador(colaborador)
+            //mostrarDatosColaborador(colaborador)
             obtenerEnvios()
         } else {
             //Toast.makeText(this, "No se recibieron datos del colaborador", Toast.LENGTH_LONG).show()
@@ -194,7 +194,9 @@ class InicioActivity : AppCompatActivity() {
                     if (e == null) {
                         try {
                             val jsonObject = JSONObject(result)
-                            envio.estatus = jsonObject.getString("objeto").substringAfter("estado=").substringBefore("}")
+                            val objetoValue = jsonObject.getJSONObject("objeto").getString("value")
+                            val objetoInterno = JSONObject(objetoValue)
+                            envio.estatus = objetoInterno.getString("estado")
                         } catch (ex: Exception) {
                             Log.e("InicioActivity", "actualizarEstatusEnvios: Error al procesar estatus del envío", ex)
                         }
@@ -209,6 +211,7 @@ class InicioActivity : AppCompatActivity() {
                 }
         }
     }
+
 
     private fun obtenerPaquetesParaEnvios(enviosList: List<Envio>) {
         Log.d("InicioActivity", "obtenerPaquetesParaEnvios: Obteniendo paquetes para los envíos")

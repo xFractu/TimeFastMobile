@@ -21,7 +21,7 @@ class DetallesEnvioActivity : AppCompatActivity() {
         if (colaboradorJSON != null) {
             val gson = Gson()
             colaborador = gson.fromJson(colaboradorJSON, Colaborador::class.java)
-            mostrarDatosColaborador(colaborador)
+            //mostrarDatosColaborador(colaborador)
         } else {
             //Toast.makeText(this, "No se recibieron datos del colaborador", Toast.LENGTH_LONG).show()
         }

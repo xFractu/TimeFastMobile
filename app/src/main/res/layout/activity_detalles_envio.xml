@@ -279,7 +279,7 @@
             android:layout_marginBottom="10dp"
             android:tint="@color/l_primary_dark"
             android:src="@drawable/ic_home"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             />
 
         <ImageView
@@ -292,20 +292,7 @@
             android:layout_marginBottom="10dp"
             android:tint="@color/l_primary_dark"
             android:src="@drawable/ic_account"
-            android:layout_weight="1"
-            />
-
-        <ImageView
-            android:id="@+id/btn_cerrar_sesion"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:tint="@color/l_primary_dark"
-            android:src="@drawable/ic_logout"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             />
 
 

@@ -52,13 +52,17 @@ class PerfilFragment : Fragment(R.layout.fragment_perfil) {
             irPantallaEditarPerfil(colaborador)
         }
 
+        binding.btnCerrarSesion.setOnClickListener {
+            cerrarSesion()
+        }
+
         // Obtener el colaborador desde los argumentos del fragmento
         val colaboradorJSON = arguments?.getString("colaborador")
         if (colaboradorJSON != null) {
             val gson = Gson()
             colaborador = gson.fromJson(colaboradorJSON, Colaborador::class.java)
 
-            mostrarDatosColaborador(colaborador)
+            //mostrarDatosColaborador(colaborador)
         }
         obtenerFotoColaborador(colaborador.idColaborador)
         val nombre = "${colaborador.persona.nombre} ${colaborador.persona.apellidoPaterno} ${colaborador.persona.apellidoMaterno}"
@@ -105,6 +109,12 @@ class PerfilFragment : Fragment(R.layout.fragment_perfil) {
                     Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_LONG).show()
                 }
             }
+    }
+
+    private fun cerrarSesion() {
+        val intent = Intent(requireContext(), SplashActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
     }
 
 

@@ -28,7 +28,7 @@ class EstatusActivity : AppCompatActivity() {
         if (colaboradorJSON != null) {
             val gson = Gson()
             colaborador = gson.fromJson(colaboradorJSON, Colaborador::class.java)
-            mostrarDatosColaborador(colaborador)
+            //mostrarDatosColaborador(colaborador)
         } else {
             //Toast.makeText(this, "No se recibieron datos del colaborador", Toast.LENGTH_LONG).show()
         }
@@ -140,6 +140,7 @@ class EstatusActivity : AppCompatActivity() {
         val intent = Intent(this@EstatusActivity, InicioActivity::class.java)
         intent.putExtra("colaborador", colaboradorJson)
         intent.putExtra("inicio", "InicioLogin")
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
     }
 
