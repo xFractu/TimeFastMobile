@@ -30,12 +30,15 @@ class DetallesEnvioActivity : AppCompatActivity() {
         if (envioJson != null) {
             val envio = Gson().fromJson(envioJson, Envio::class.java)
             mostrarDetallesEnvio(envio)
+            binding.tvNumGuiaEnvio.text = envio.numGuia
             binding.tvCambiarEstatus.setOnClickListener {
                 irPantallaEstatus(envio,colaborador)
             }
         } else {
             binding.tvInfoEstatus.text = "Error al cargar el envío"
         }
+
+
 
         binding.btnInicio.setOnClickListener {
             irPantallaInicio(colaborador)
@@ -90,7 +93,7 @@ class DetallesEnvioActivity : AppCompatActivity() {
         binding.ivEstatus.setImageResource(estatusDrawable)
 
         binding.tvInfoContacto.text = with(envio.cliente) {
-            "${persona.nombre}, ${persona.apellidoPaterno}, ${persona.apellidoMaterno}, Número: $telefono, Correo: ${persona.correo}, CURP: ${persona.CURP}"
+            "Nombre: ${persona.nombre} ${persona.apellidoPaterno} ${persona.apellidoMaterno}\nNúmero: $telefono\nCorreo: ${persona.correo}"
         }
     }
 

@@ -151,6 +151,8 @@ class EditarPerfilActivity : AppCompatActivity() {
 
 
     private fun validarCampos(): Boolean {
+        val emailRegex = Regex("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
+
         return when {
             binding.etNombre.text.isNullOrEmpty() -> {
                 binding.etNombre.error = "El nombre no puede estar vacío"
@@ -172,6 +174,10 @@ class EditarPerfilActivity : AppCompatActivity() {
                 binding.etCorreo.error = "El correo no puede estar vacío"
                 false
             }
+            !emailRegex.matches(binding.etCorreo.text.toString()) -> {
+                binding.etCorreo.error = "El correo no es válido"
+                false
+            }
             binding.etNoLicencia.text.isNullOrEmpty() -> {
                 binding.etNoLicencia.error = "El número de licencia no puede estar vacío"
                 false
@@ -183,6 +189,7 @@ class EditarPerfilActivity : AppCompatActivity() {
             else -> true
         }
     }
+
 
     private fun irPantallaPerfilF(colaborador: Colaborador) {
         val gson = Gson()

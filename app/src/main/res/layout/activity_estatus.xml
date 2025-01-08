@@ -30,7 +30,6 @@ tools:context=".EstatusActivity">
         android:textSize="30dp"
         android:layout_below="@+id/tv_envio"
         android:layout_marginStart="20dp"
-
         />
 
 <LinearLayout
